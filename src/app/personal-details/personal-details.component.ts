@@ -1,5 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PersonalDetails } from './personal-details.model';
 
 @Component({
   selector: 'app-personal-details',
@@ -8,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class PersonalDetailsComponent implements OnInit {
 
-  @Output() detailsAdded: EventEmitter<any> = new EventEmitter<any>();
+  @Output() detailsAdded = new EventEmitter<PersonalDetails>();
   personalDetailsForm: FormGroup;
 
   constructor(
@@ -20,7 +21,7 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   buildPersonalDetailsForm(): void {
-    this.formBuilder.group({
+    this.personalDetailsForm = this.formBuilder.group({
       name: ['', Validators.required],
       friends: ['', Validators.required],
       age: ['', Validators.required],
