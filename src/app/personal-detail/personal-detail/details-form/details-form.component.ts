@@ -1,17 +1,13 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@angular/forms';
-import { PersonalDetails } from './personal-details.model';
-import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { PersonalDetails } from '../personal-details.model';
+import { FormBuilder, Validators, FormArray, FormControl, FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'app-personal-details',
-  templateUrl: './personal-details.component.html',
-  styleUrls: ['./personal-details.component.scss'],
-  providers: [
-    {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
-  ]
+  selector: 'app-details-form',
+  templateUrl: './details-form.component.html',
+  styleUrls: ['./details-form.component.scss']
 })
-export class PersonalDetailsComponent implements OnInit {
+export class DetailsFormComponent implements OnInit {
 
   @Output() detailsAdded = new EventEmitter<PersonalDetails>();
   personalDetailsForm: FormGroup;
