@@ -7,11 +7,14 @@ import { PersonalDetails } from './personal-detail/personal-details.model';
 })
 export class DetailsStoreService implements OnDestroy {
 
-  private detailsSubbject$: BehaviorSubject<PersonalDetails> = new BehaviorSubject<PersonalDetails>(null);
-  readonly details$: Observable<PersonalDetails> = this.detailsSubbject$.asObservable();
+  private readonly initialState: PersonalDetails[] = [];
+
+  private detailsSubbject$: BehaviorSubject<PersonalDetails[]> = new BehaviorSubject<PersonalDetails[]>(this.initialState);
+  readonly details$: Observable<PersonalDetails[]> = this.detailsSubbject$.asObservable();
 
   setDetails(details: PersonalDetails): void {
-    this.detailsSubbject$.next(details);
+    const updatedState = [...this.detailsSubbject$.value, details];
+    this.detailsSubbject$.next(updatedState);
   }
 
   ngOnDestroy(): void {

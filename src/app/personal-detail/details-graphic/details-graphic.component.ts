@@ -10,7 +10,7 @@ import { PersonalDetails } from '../personal-detail/personal-details.model';
 })
 export class DetailsGraphicComponent implements OnInit {
 
-  details$: Observable<PersonalDetails>;
+  details$: Observable<PersonalDetails[]>;
 
   constructor(
     private detailStoreService: DetailsStoreService

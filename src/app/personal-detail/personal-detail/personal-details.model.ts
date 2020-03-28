@@ -1,8 +1,8 @@
 export class PersonalDetails {
   constructor(
-    public name: string,
-    public friends: string,
-    public age: number,
-    public weight: number
+    public name: string | null,
+    public friends: string | null,
+    public age: number | null,
+    public weight: number | null
   ) {}
 }
