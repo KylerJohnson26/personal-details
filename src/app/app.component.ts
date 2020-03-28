@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'personal-details';
+
+  onDetailAdded(event) {
+    console.log(event);
+  }
 }

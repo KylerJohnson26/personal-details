@@ -9,19 +9,35 @@
         <mat-form-field class="details-input name">
           <mat-label>Name</mat-label>
           <input matInput formControlName="name" />
-        </mat-form-field>
-        <mat-form-field class="details-input friends">
-          <mat-label>Friends</mat-label>
-          <input matInput formControlName="friends" />
+          <mat-error *ngIf="personalDetailsForm.controls['name'].invalid">Cannot be black. Please enter your name</mat-error>
         </mat-form-field>
         <mat-form-field class="details-input age">
           <mat-label>Age</mat-label>
-          <input matInput formControlName="age" />
+          <input matInput formControlName="age" type="number"/>
+          <mat-error *ngIf="personalDetailsForm.controls['age'].invalid">Please enter a number</mat-error>
         </mat-form-field>
         <mat-form-field class="details-input weight">
-          <mat-label>Weight</mat-label>
-          <input matInput formControlName="weight" />
+          <mat-label>Weight (lbs)</mat-label>
+          <input matInput formControlName="weight" type="number"/>
+          <mat-error *ngIf="personalDetailsForm.controls['weight'].invalid">Please enter a number</mat-error>
         </mat-form-field>
+
+        <h3>Friends</h3>
+        <div class="friends-section" formArrayName="friends"*ngFor="let friend of friends.controls; let i = index">
+          <mat-form-field class="details-input friends" >
+            <mat-label>Friend {{ i + 1 }}</mat-label>
+            <input matInput [formControl]="friend" />
+            <mat-error *ngIf="hasSubmitted && friend.invalid">Cannot be blank. Please add friends</mat-error>
+          </mat-form-field>
+          <button mat-icon-button class="delete-friend-btn" [color]="'warn'" (click)="removeFriend(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <div class="friends-actions">
+          <button mat-raised-button class="add-friend-btn" (click)="addAnotherFriend()" [color]="'primary'">
+            Add Friend
+          </button>
+        </div>
       </form>
     </mat-card-content>
 
