@@ -1,0 +1,8 @@
+<mat-card class="graphic-wrapper" *ngIf="details$ | async as details">
+  <mat-card-header>
+    <mat-card-title>Personal Details Graphic</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    {{ details | json }}
+  </mat-card-content>
+</mat-card>

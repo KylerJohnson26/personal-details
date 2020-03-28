@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { PersonalDetailComponent } from './personal-detail/personal-detail/personal-detail.component';
+import { DetailsGraphicComponent } from './personal-detail/details-graphic/details-graphic.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'personal-details' },
