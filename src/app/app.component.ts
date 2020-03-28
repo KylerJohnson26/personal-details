@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PersonalDetails } from './personal-details/personal-details.model';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +10,14 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'personal-details';
 
-  onDetailAdded(event) {
-    console.log(event);
+  constructor(
+    private snackbar: MatSnackBar
+  ) {}
+
+  onDetailAdded(personalDetails: PersonalDetails) {
+    this.snackbar.open('Details added!', '', {
+      duration: 3000
+    });
+    console.log(personalDetails);
   }
 }
