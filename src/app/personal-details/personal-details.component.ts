@@ -16,7 +16,6 @@ export class PersonalDetailsComponent implements OnInit {
   @Output() detailsAdded = new EventEmitter<PersonalDetails>();
   personalDetailsForm: FormGroup;
   error: string;
-  hasSubmitted = false;
 
   constructor(
     public formBuilder: FormBuilder
@@ -56,19 +55,26 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   removeFriend(i: number) {
-    this.friends.removeAt(i);
+    // since one friend is required, never let user delete all friend inputs
+    if (i > 0) {
+      this.friends.removeAt(i);
+    }
   }
 
   resetForm(): void {
     this.personalDetailsForm.reset();
     // reset form with only one input in friends section
     const defaultFormControl = new FormControl('', Validators.required);
-    this.personalDetailsForm.controls.friends = new FormArray([defaultFormControl]);
+    this.personalDetailsForm.setControl('friends', new FormArray([defaultFormControl]));
+    this.error = undefined;
   }
 
   onSubmit(): void {
     if (this.personalDetailsForm.valid) {
+      this.error = undefined;
       this.detailsAdded.emit(this.personalDetailsForm.value);
+    } else {
+      this.error = 'Please ensure the form above has been completed and all errors have been resolved';
     }
   }
 

@@ -29,7 +29,12 @@
             <input matInput [formControl]="friend" />
             <mat-error *ngIf="friend.invalid">Cannot be blank. Please add friends</mat-error>
           </mat-form-field>
-          <button mat-icon-button class="delete-friend-btn" [color]="'warn'" (click)="removeFriend(i)">
+          <button
+            mat-icon-button
+            *ngIf="i > 0"
+            class="delete-friend-btn"
+            [color]="'warn'"
+            (click)="removeFriend(i)">
             <mat-icon>delete</mat-icon>
           </button>
         </div>
@@ -59,6 +64,7 @@
           Add Details
         </button>
       </mat-card-actions>
+      <mat-error class="error-message" *ngIf="error">{{ error }}</mat-error>
     </mat-card-footer>
   </mat-card>
 </section>
