@@ -37,9 +37,12 @@ export class PersonalDetailsComponent implements OnInit {
     });
   }
 
-  get formControls() { return this.personalDetailsForm.controls; }
-  // get t() { return this.f.tickets as FormArray; }
+  // convenience method to get form controls
+  get formControls() {
+    return this.personalDetailsForm.controls;
+  }
 
+  // convenience method to get friends FormArray
   get friends(): FormArray {
     return this.formControls.friends as FormArray;
   }
@@ -49,12 +52,18 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   addAnotherFriend() {
-    // const friendsFormControls = this.personalDetailsForm.get('friends') as FormArray;
     this.friends.push(this.newFriend());
   }
 
   removeFriend(i: number) {
     this.friends.removeAt(i);
+  }
+
+  resetForm(): void {
+    this.personalDetailsForm.reset();
+    // reset form with only one input in friends section
+    const defaultFormControl = new FormControl('', Validators.required);
+    this.personalDetailsForm.controls.friends = new FormArray([defaultFormControl]);
   }
 
   onSubmit(): void {

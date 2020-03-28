@@ -27,7 +27,7 @@
           <mat-form-field class="details-input friends" >
             <mat-label>Friend {{ i + 1 }}</mat-label>
             <input matInput [formControl]="friend" />
-            <mat-error *ngIf="hasSubmitted && friend.invalid">Cannot be blank. Please add friends</mat-error>
+            <mat-error *ngIf="friend.invalid">Cannot be blank. Please add friends</mat-error>
           </mat-form-field>
           <button mat-icon-button class="delete-friend-btn" [color]="'warn'" (click)="removeFriend(i)">
             <mat-icon>delete</mat-icon>
@@ -46,7 +46,7 @@
         <button
           mat-raised-button
           class="clear-form-btn action-btn"
-          (click)="personalDetailsForm.reset()"
+          (click)="resetForm()"
         >
           Clear
         </button>
