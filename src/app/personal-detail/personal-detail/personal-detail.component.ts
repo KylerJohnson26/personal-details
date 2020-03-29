@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PersonalDetails } from './personal-details.model';
 import { ErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { DetailsStoreService } from '../details-store.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-personal-detail',
@@ -12,12 +13,18 @@ import { DetailsStoreService } from '../details-store.service';
     {provide: ErrorStateMatcher, useClass: ShowOnDirtyErrorStateMatcher}
   ]
 })
-export class PersonalDetailComponent {
+export class PersonalDetailComponent implements OnInit {
+
+  details$: Observable<PersonalDetails[]>;
 
   constructor(
     private detailsStoreService: DetailsStoreService,
     private snackbar: MatSnackBar
   ) {}
+
+  ngOnInit(): void {
+    this.details$ = this.detailsStoreService.details$;
+  }
 
   onDetailsAdded(personalDetails: PersonalDetails) {
     this.detailsStoreService.setDetails(personalDetails);
