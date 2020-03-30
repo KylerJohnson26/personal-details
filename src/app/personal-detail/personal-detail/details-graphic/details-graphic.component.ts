@@ -35,7 +35,7 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    console.log(this.data);
+    // todo: update chart on changes
   }
 
   private prepareScatterData() {
@@ -109,7 +109,6 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
   private setXAxis() {
     this.xAxis = d3
       .axisBottom(this.xScale)
-      // .tickFormat(formatTicks)
       .tickSizeInner(-this.height)
       .tickSizeOuter(0);
   }
@@ -119,13 +118,15 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
       .append('g')
       .attr('class', 'x axis')
       .attr('transform', `translate(0, ${this.height})`)
-      .call(this.xAxis);
+      .style('stroke', '#3F51B5')
+      .style('stroke-dasharray', '4, 2')
+      .call(this.xAxis)
+      .call(this.addLabel, 'Age', 20);
   }
 
   private setYAxis() {
     this.yAxis = d3
       .axisLeft(this.yScale)
-      // .tickFormat(formatTicks)
       .tickSizeInner(-this.height)
       .tickSizeOuter(0);
   }
@@ -134,7 +135,25 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
     this.svg
       .append('g')
       .attr('class', 'y axis')
-      .call(this.yAxis);
+      .style('stroke', '#3F51B5')
+      .style('stroke-dasharray', '4, 2')
+      .call(this.yAxis)
+      .call(this.addLabel, 'No. of Close Friends', 5);
+  }
+
+  private addLabel(axis: any, label: string, x: number) {
+    axis
+      .selectAll('.tick:last-of-type text')
+      .clone()
+      .text(label)
+      .attr('x', x)
+      .style('text-anchor', 'start')
+      .style('font-weight', 'bold')
+      .style('fill', '#555');
+  }
+
+  private removeChart() {
+    d3.select('svg').remove();
   }
 
 
