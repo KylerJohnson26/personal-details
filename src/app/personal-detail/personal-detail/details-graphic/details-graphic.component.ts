@@ -70,14 +70,14 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
   private setXScale(scatterData: PersonalDetails[]) {
     this.xScale = d3
       .scaleLinear()
-      .domain(d3.extent(scatterData, d => d.friends.length))
+      .domain(d3.extent(scatterData, d => d.age))
       .range([0, this.width]);
   }
 
   private setYScale(scatterData: PersonalDetails[]) {
     this.yScale = d3
       .scaleLinear()
-      .domain(d3.extent(scatterData, d => d.age))
+      .domain(d3.extent(scatterData, d => d.friends.length))
       .range([this.height, 0]);
   }
 
@@ -99,8 +99,8 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
       .enter()
       .append('circle')
       .attr('class', 'scatter')
-      .attr('cx', d => this.xScale(d.friends.length))
-      .attr('cy', d => this.yScale(d.age))
+      .attr('cx', d => this.xScale(d.age))
+      .attr('cy', d => this.yScale(d.friends.length))
       .attr('r', 3)
       .style('fill', '#FF4081')
       .style('fill-opacity', 0.7);
