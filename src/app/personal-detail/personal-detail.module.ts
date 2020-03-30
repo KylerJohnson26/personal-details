@@ -4,22 +4,21 @@ import { DetailsFormComponent } from './personal-detail/details-form/details-for
 import { PersonalDetailComponent } from './personal-detail/personal-detail.component';
 import { AngularMaterialModule } from '../angular-material/angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { DetailsGraphicComponent } from './personal-detail/details-graphic/details-graphic.component';
 import { RouterModule } from '@angular/router';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
   declarations: [
     PersonalDetailComponent,
     DetailsFormComponent,
-    DetailsGraphicComponent
   ],
   imports: [
     CommonModule,
     AngularMaterialModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    NgxChartsModule
   ],
   exports: [
     PersonalDetailComponent
