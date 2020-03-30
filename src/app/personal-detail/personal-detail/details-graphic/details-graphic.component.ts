@@ -9,7 +9,7 @@ import { PersonalDetails } from '../personal-details.model';
   styleUrls: ['./details-graphic.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DetailsGraphicComponent implements AfterContentInit, OnChanges {
+export class DetailsGraphicComponent implements OnInit, OnChanges {
 
   @Input() data: PersonalDetails[];
 
@@ -29,23 +29,14 @@ export class DetailsGraphicComponent implements AfterContentInit, OnChanges {
   width = 500 - this.margin.left - this.margin.right;
   height = 500 - this.margin.top - this.margin.bottom;
 
-  constructor(
-    private elRef: ElementRef
-  ) {
-    this.hostElement = this.elRef.nativeElement;
-  }
+  constructor() {}
 
-  // ngOnInit() {
-  //   this.buildScatterChart();
-  // }
+  ngOnInit() {
+    this.buildScatterChart();
+  }
 
   ngOnChanges() {
-    // this.updateScatterChart(this.data)
-  }
-
-  ngAfterContentInit() {
-    console.log('afterContentInit')
-    this.buildScatterChart();
+    console.log(this.data);
   }
 
   prepareScatterData() {
