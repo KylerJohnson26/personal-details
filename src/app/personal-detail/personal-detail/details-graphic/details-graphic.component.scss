@@ -2,5 +2,54 @@
   make this column of equal height to the form column
 */
 :host {
-  display: contents;
+  // display: contents;
+  height: 100%;
+
+  .scatter-chart {
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  app-area-chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+  }
+
+    svg {
+      height: 100%;
+      width: 100%;
+
+      .axis {
+        font: 10px sans-serif;
+    }
+
+    .axis path,
+    .axis line {
+        fill: none;
+        stroke: #000;
+        shape-rendering: crispEdges;
+    }
+
+    .axis-title {
+        fill: none;
+        stroke: black;
+        stroke-width: 0.5px;
+    }
+
+
+    .axis--x path {
+        /*display: none;*/
+    }
+
+    .line {
+        fill: none;
+        stroke: steelblue;
+        stroke-width: 1.5px;
+    }
+    }
+  }
 }
