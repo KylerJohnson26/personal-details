@@ -1,6 +1,10 @@
 # PersonalDetails
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.25.
+Working with D3 to get the scatter plot chart to render was fairly straight-forward; however, getting it to update in a way that works with Angular's change detection is a challenge I have not been able to figure out in such short order.
+
+I'm initializing the store with some seed data to show that the chart properly builds and d3 properly associates position with data metrics.
+
+At the end of the day, we need a working product so in the `ngx-charts-solution` I've used the `@swimlane/ngx-charts`, which uses D3, under-the-hood to build a graphical representation of the data. 
 
 ## Development server
 
