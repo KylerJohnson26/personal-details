@@ -21,7 +21,7 @@
         <mat-error *ngIf="personalDetailsForm.controls['weight'].invalid">Please enter a number</mat-error>
       </mat-form-field>
 
-      <h3>Friends</h3>
+      <h3>Close Friends</h3>
       <div class="friends-section" formArrayName="friends"*ngFor="let friend of friends.controls; let i = index">
         <mat-form-field class="details-input friends" >
           <mat-label>Friend {{ i + 1 }}</mat-label>

@@ -19,6 +19,9 @@ export class PersonalDetailComponent implements OnInit {
 
   details$: Observable<ChartData[]>;
 
+  xAxisLabel = 'Age';
+  yAxisLabel = 'No. of Close Friends';
+
   constructor(
     private detailsStoreService: DetailsStoreService,
     private snackbar: MatSnackBar
