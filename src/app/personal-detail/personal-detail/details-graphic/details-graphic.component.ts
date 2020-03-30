@@ -13,21 +13,20 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
 
   @Input() data: PersonalDetails[];
 
-  margin = {
+  private margin = {
     top: 40,
     right: 40,
     bottom: 40,
     left: 40
   };
-  svg;
-  hostElement: ElementRef;
-  xScale;
-  yScale;
-  xAxis;
-  yAxis;
+  private svg;
+  private xScale;
+  private yScale;
+  private xAxis;
+  private yAxis;
 
-  width = 500 - this.margin.left - this.margin.right;
-  height = 500 - this.margin.top - this.margin.bottom;
+  private width = 500 - this.margin.left - this.margin.right;
+  private height = 500 - this.margin.top - this.margin.bottom;
 
   constructor() {}
 
@@ -39,12 +38,12 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
     console.log(this.data);
   }
 
-  prepareScatterData() {
+  private prepareScatterData() {
     // sort data by age desc
     return [...this.data.sort((a, b) => b.age - a.age)];
   }
 
-  buildScatterChart() {
+  private buildScatterChart() {
     const scatterData = this.prepareScatterData();
     this.setScatterChartDimensions();
     this.setXScale(scatterData);
@@ -56,7 +55,7 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
     this.drawYAxis();
   }
 
-  updateScatterChart(scatterData: PersonalDetails[]) {
+  private updateScatterChart(scatterData: PersonalDetails[]) {
     if (!this.svg) {
       this.drawScatterChart(scatterData);
       return;
@@ -68,21 +67,21 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
       .data(scatterData);
   }
 
-  setXScale(scatterData: PersonalDetails[]) {
+  private setXScale(scatterData: PersonalDetails[]) {
     this.xScale = d3
       .scaleLinear()
       .domain(d3.extent(scatterData, d => d.friends.length))
       .range([0, this.width]);
   }
 
-  setYScale(scatterData: PersonalDetails[]) {
+  private setYScale(scatterData: PersonalDetails[]) {
     this.yScale = d3
       .scaleLinear()
       .domain(d3.extent(scatterData, d => d.age))
       .range([this.height, 0]);
   }
 
-  setScatterChartDimensions() {
+  private setScatterChartDimensions() {
     this.svg = d3
       .select('.scatter-chart').append('svg')
       .attr('width', this.width + this.margin.right + this.margin.left)
@@ -91,7 +90,7 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
   }
 
-  drawScatterChart(scatterData): void {
+  private drawScatterChart(scatterData): void {
     this.svg
       .append('g')
       .attr('class', 'scatter-points')
@@ -107,7 +106,7 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
       .style('fill-opacity', 0.7);
   }
 
-  setXAxis() {
+  private setXAxis() {
     this.xAxis = d3
       .axisBottom(this.xScale)
       // .tickFormat(formatTicks)
@@ -115,7 +114,7 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
       .tickSizeOuter(0);
   }
 
-  drawXAxis() {
+  private drawXAxis() {
     this.svg
       .append('g')
       .attr('class', 'x axis')
@@ -123,7 +122,7 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
       .call(this.xAxis);
   }
 
-  setYAxis() {
+  private setYAxis() {
     this.yAxis = d3
       .axisLeft(this.yScale)
       // .tickFormat(formatTicks)
@@ -131,7 +130,7 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
       .tickSizeOuter(0);
   }
 
-  drawYAxis() {
+  private drawYAxis() {
     this.svg
       .append('g')
       .attr('class', 'y axis')
