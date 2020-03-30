@@ -5,8 +5,19 @@
       <mat-card-title>Personal Details Graphic</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <div class="graph-section">
-        <app-details-graphic [data]="details$ | async"></app-details-graphic>
+      <div class="graph-section" *ngIf="details$ | async as details">
+        <!-- <app-details-graphic [data]="details$ | async"></app-details-graphic> -->
+        <ngx-charts-line-chart
+          [results]="details"
+          [xAxis]="true"
+          [xAxisLabel]="'Age'"
+          [yAxisLabel]="'No. Close Friends'"
+          [roundDomains]="true"
+          [yAxis]="true"
+          [showGridLines]="true"
+          [showRefLabels]="true">
+        </ngx-charts-line-chart>
+
       </div>
     </mat-card-content>
   </mat-card>
