@@ -67,22 +67,28 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
   }
 
   private updateScatterChart(scatterData: PersonalDetails[]) {
+    const scatterGroup = d3
+      .select('.scatter-chart')
+      .select('.chart')
+      .select('.scatter-group');
 
     this.setXScale(scatterData);
     this.setYScale(scatterData);
     this.setXAxis();
     this.setYAxis();
-    d3.select('svg').selectAll('.y.axis').call(this.yAxis);
-    d3.select('svg').selectAll('.x.axis').call(this.xAxis);
+    scatterGroup.selectAll('.y.axis').call(this.yAxis);
+    scatterGroup.selectAll('.x.axis').call(this.xAxis);
 
-    const update = d3.select('svg').selectAll('.scatter')
+    const update = scatterGroup
+      .select('.scatter-points')
+      .selectAll('.scatter')
       .data(scatterData);
 
     update.exit().remove();
 
     update.transition()
-      .attr('x', d => this.xScale(d.age))
-      .attr('y', d => this.yScale(d.friends.length));
+      .attr('cx', d => this.xScale(d.age))
+      .attr('cy', d => this.yScale(d.friends.length));
 
     update
       .enter()
@@ -90,7 +96,7 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
       .attr('class', 'scatter')
       .attr('cx', d => this.xScale(d.age))
       .attr('cy', d => this.yScale(d.friends.length))
-      .attr('r', 3)
+      .attr('r', 5)
       .style('fill', '#FF4081')
       .style('fill-opacity', 0.7);
 
@@ -114,9 +120,11 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
     this.svg = d3
       .select('.scatter-chart')
       .append('svg')
+      .attr('class', 'chart')
       .attr('width', this.width + this.margin.right + this.margin.left)
       .attr('height', this.height + this.margin.top + this.margin.bottom)
       .append('g')
+      .attr('class', 'scatter-group')
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
   }
 
@@ -131,7 +139,7 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
       .attr('class', 'scatter')
       .attr('cx', d => this.xScale(d.age))
       .attr('cy', d => this.yScale(d.friends.length))
-      .attr('r', 3)
+      .attr('r', 5)
       .style('fill', '#FF4081')
       .style('fill-opacity', 0.7);
   }
