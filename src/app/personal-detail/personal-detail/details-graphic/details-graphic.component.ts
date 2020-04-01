@@ -1,4 +1,12 @@
-import { Component, OnInit, Input, OnChanges, ChangeDetectionStrategy, ElementRef, SimpleChanges, AfterContentInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  ChangeDetectionStrategy,
+  ElementRef,
+  ViewChild
+} from '@angular/core';
 
 import * as d3 from 'd3';
 import { PersonalDetails } from '../personal-details.model';
@@ -10,7 +18,7 @@ import { PersonalDetails } from '../personal-details.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DetailsGraphicComponent implements OnInit, OnChanges {
-
+  @ViewChild('chart', { static: true }) chartContainer: ElementRef;
   @Input() data: PersonalDetails[];
 
   private margin = {
@@ -19,6 +27,7 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
     bottom: 40,
     left: 40
   };
+  private chart: any;
   private svg;
   private xScale;
   private yScale;
@@ -35,7 +44,9 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
+    console.log(this.chartContainer.nativeElement);
     // todo: update chart on changes
+    this.updateScatterChart(this.data);
   }
 
   private prepareScatterData() {
@@ -56,15 +67,40 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
   }
 
   private updateScatterChart(scatterData: PersonalDetails[]) {
-    if (!this.svg) {
-      this.drawScatterChart(scatterData);
-      return;
-    }
-    console.log(scatterData.length);
-    this.svg = d3
-      .select('.scatter-chart')
-      .selectAll('.scatter')
+    // if (!this.svg) {
+    //   this.drawScatterChart(scatterData);
+    //   return;
+    // }
+    // console.log(scatterData.length);
+    // this.svg = d3
+    //   .select('.scatter-chart')
+    //   .selectAll('.scatter')
+    //   .data(scatterData);
+    this.setXAxis();
+    this.setYAxis();
+    this.setXScale(scatterData);
+    this.setYScale(scatterData);
+    // this.xAxis.transition().call(d3.axisBottom(this.xScale));
+    // this.yAxis.transition().call(d3.axisLeft(this.yScale));
+
+    const update = d3.select('svg').selectAll('.scatter')
       .data(scatterData);
+
+    update.exit().remove();
+
+    d3.select('svg').selectAll('.scatter').transition()
+      .attr('x', d => this.xScale(d[0]))
+      .attr('y', d => this.yScale(d[1]))
+
+    update
+      .enter()
+      .append('circle')
+      .attr('class', 'scatter')
+      .attr('cx', d => this.xScale(d.age))
+      .attr('cy', d => this.yScale(d.friends.length))
+      .attr('r', 3)
+      .style('fill', '#FF4081')
+      .style('fill-opacity', 0.7);
   }
 
   private setXScale(scatterData: PersonalDetails[]) {
@@ -83,7 +119,8 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
 
   private setScatterChartDimensions() {
     this.svg = d3
-      .select('.scatter-chart').append('svg')
+      .select('.scatter-chart')
+      .append('svg')
       .attr('width', this.width + this.margin.right + this.margin.left)
       .attr('height', this.height + this.margin.top + this.margin.bottom)
       .append('g')
@@ -155,6 +192,4 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
   private removeChart() {
     d3.select('svg').remove();
   }
-
-
 }
