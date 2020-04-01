@@ -2,7 +2,13 @@
 
 Using D3 to create a scatter plot chart. On initial load, I'm reading in some seed data just to show an inititial rendering of the chart. When more details are added, the chart updates successfully, adding new plots and transitioning existing plots with new coordinates if necessary.
 
-I'm initializing the store with some seed data to show that the chart properly builds and d3 properly associates position with data metrics.
+Fixing default tests - basically just testing to ensure components and services build correctly at this point. 
+Next steps in priority order would have been:
+- using jasmine-marbles to test the `details$` observable in the `DetailsStoreService`.
+   - when the `setDetails` method is called, ensure that the observable emits a new value
+   - ensure that the `details$` observable is completed when the `DetailsStoreService` is destroyed
+- spying on the the `setDetails` method to ensure it is called when the "Add Details" button is clicked and the form is valid.
+   - negative test - ensuring that it is not called if the form is invalid
 
 At the end of the day, we need a working product so in the `ngx-charts-solution` I've used the `@swimlane/ngx-charts`, which uses D3, under-the-hood to build a graphical representation of the data. 
 
