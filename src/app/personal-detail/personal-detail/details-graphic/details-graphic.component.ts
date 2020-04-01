@@ -67,30 +67,22 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
   }
 
   private updateScatterChart(scatterData: PersonalDetails[]) {
-    // if (!this.svg) {
-    //   this.drawScatterChart(scatterData);
-    //   return;
-    // }
-    // console.log(scatterData.length);
-    // this.svg = d3
-    //   .select('.scatter-chart')
-    //   .selectAll('.scatter')
-    //   .data(scatterData);
-    this.setXAxis();
-    this.setYAxis();
+
     this.setXScale(scatterData);
     this.setYScale(scatterData);
-    // this.xAxis.transition().call(d3.axisBottom(this.xScale));
-    // this.yAxis.transition().call(d3.axisLeft(this.yScale));
+    this.setXAxis();
+    this.setYAxis();
+    d3.select('svg').selectAll('.y.axis').call(this.yAxis);
+    d3.select('svg').selectAll('.x.axis').call(this.xAxis);
 
     const update = d3.select('svg').selectAll('.scatter')
       .data(scatterData);
 
     update.exit().remove();
 
-    d3.select('svg').selectAll('.scatter').transition()
-      .attr('x', d => this.xScale(d[0]))
-      .attr('y', d => this.yScale(d[1]))
+    update.transition()
+      .attr('x', d => this.xScale(d.age))
+      .attr('y', d => this.yScale(d.friends.length));
 
     update
       .enter()
@@ -101,6 +93,7 @@ export class DetailsGraphicComponent implements OnInit, OnChanges {
       .attr('r', 3)
       .style('fill', '#FF4081')
       .style('fill-opacity', 0.7);
+
   }
 
   private setXScale(scatterData: PersonalDetails[]) {
