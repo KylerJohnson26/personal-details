@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DetailsGraphicComponent } from './details-graphic.component';
+import { AngularMaterialModule } from 'src/app/angular-material/angular-material.module';
 
 describe('DetailsGraphicComponent', () => {
   let component: DetailsGraphicComponent;
@@ -8,7 +9,8 @@ describe('DetailsGraphicComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DetailsGraphicComponent ]
+      declarations: [ DetailsGraphicComponent ],
+      imports: [ AngularMaterialModule ]
     })
     .compileComponents();
   }));
@@ -16,6 +18,7 @@ describe('DetailsGraphicComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DetailsGraphicComponent);
     component = fixture.componentInstance;
+    component.data = [];
     fixture.detectChanges();
   });
 
