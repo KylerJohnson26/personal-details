@@ -1,6 +1,6 @@
 # PersonalDetails
 
-Working with D3 to get the scatter plot chart to render was fairly straight-forward; however, getting it to update in a way that works with Angular's change detection is a challenge I have not been able to figure out in such short order.
+Using D3 to create a scatter plot chart. On initial load, I'm reading in some seed data just to show an inititial rendering of the chart. When more details are added, the chart updates successfully, adding new plots and transitioning existing plots with new coordinates if necessary.
 
 I'm initializing the store with some seed data to show that the chart properly builds and d3 properly associates position with data metrics.
 
